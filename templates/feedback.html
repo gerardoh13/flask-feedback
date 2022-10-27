@@ -1,0 +1,10 @@
+{% extends "base.html" %} {% block title %} Add Feedback {% endblock %} {% block content
+    %}
+    <h1>Add Feedback</h1>
+    <form method="POST">
+      {% include "form.html" %}
+      <div class="formBtnDiv">
+        <button class="btn btn-success formBtn text-center" type="submit">Add</button>
+      </div>
+      </form>
+    {% endblock %}

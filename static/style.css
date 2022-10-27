@@ -1,0 +1,46 @@
+
+body {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  background: rgb(220,208,255);
+  background: radial-gradient(circle, rgba(220,208,255,1) 0%, rgba(72,79,175,1) 100%);
+}
+
+.navbar {
+  width: 100%;
+}
+
+form {
+    margin: auto !important;
+  }
+
+@media (min-width: 768px) and (max-width: 1024px) {
+    form {
+      max-width: 100%;
+    }
+  }
+  
+  @media (min-width: 1025px) and (max-width: 1280px) {
+    form {
+      max-width: 80%;
+    }
+  }
+  
+  @media (min-width: 1281px) {
+    form {
+      max-width: 60%;
+    }
+  }
+  
+  .formBtnDiv {
+    text-align: center;
+    width: 50%;
+    margin: auto;
+  }
+
+  .formBtn {
+    width: 100%;
+  }
