@@ -1,13 +1,11 @@
-{% extends "base.html" %} {% block title %} Login {% endblock %} {% block content
-    %}
-    <h1 class="text-center">Login</h1>
-    <form method="POST">
-      {% include "form.html" %}
-      <div class="text-end">
-        <button class="btn btn-success formBtn" type="submit">Login</button>
-      </div>
-      <hr>
-      <p class="text-center">or</p>
-      <a href="/register" class="btn btn-primary formBtn"> Register</a>
-      </form>
-    {% endblock %}
+{% extends "base.html" %} {% block title %} Login {% endblock %} {% block
+content %}
+<h1 class="text-center">Login</h1>
+<form method="POST">
+  {% include "form.html" %}
+  <button class="btn btn-success formBtn" type="submit">Login</button>
+  <hr />
+  <p class="text-center">Don't have an account?</p>
+  <a href="/register" class="btn btn-primary formBtn"> Register</a>
+</form>
+{% endblock %}

@@ -44,8 +44,13 @@ width: 100%;
 
   .delBtn {
     float: right;
+    margin-left: 10px;
   }
 
   .editBtn {
     float: left;
+  }
+
+  h1 {
+    margin-bottom: 20px;
   }

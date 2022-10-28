@@ -4,9 +4,9 @@ content %}
 <h3>Username: {{ user.username }}</h3>
 <h3>Name: {{ user.first_name }} {{ user.last_name}}</h3>
 <h3>Email: {{ user.email }}</h3>
-<form class="mb-4 delForm" action="/users/{{ users.username }}/delete" method="POST">
+<form class="mb-4 delForm" action="/users/{{ user.username }}/delete" method="POST">
   <button class="btn btn-danger">Delete Account</button>
-  <a href="/users/{{ user.username }}/add" class="btn btn-info">
+  <a href="/users/{{ user.username }}/add" class="btn btn-dark">
     Add Feedback</a>
   </form>
 <div class="row">

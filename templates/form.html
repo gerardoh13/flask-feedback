@@ -1,15 +1,9 @@
-{{ form.hidden_tag() }}
-      <div class="row form-group">
-{% for field in form
-  if field.widget.input_type != 'hidden' %}
-<div class="col-2">
-  {{ field.label }}
-</div>
-<div class="col-10">
-  {{ field(class_="form-control mb-3") }}
-  {% for error in field.errors %}
+{{ form.hidden_tag() }} {% for field in form if field.widget.input_type !=
+'hidden' %}
+<div class="row form-floating">
+  {{ field(class_="form-control mb-3") }} {{ field.label }} {% for error in
+  field.errors %}
   <span class="form-text text-danger">{{ error }}</span>
   {% endfor %}
 </div>
 {% endfor %}
-</div>
