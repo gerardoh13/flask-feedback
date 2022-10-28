@@ -139,4 +139,20 @@ def logout_user():
 
 @app.route('/401')
 def show_401_error():
-    return render_template('401.html')
+    """shows 401 page"""
+    if "username" in session:
+        username = session["username"]
+        route = f"/users/{username}"
+    else:
+        route = "/"
+    return render_template('401.html', route=route)
+
+@app.errorhandler(404)
+def page_not_found(e):
+    """shows 401 page"""
+    if "username" in session:
+        username = session["username"]
+        route = f"/users/{username}"
+    else:
+        route = "/"
+    return render_template('404.html', route=route), 404
