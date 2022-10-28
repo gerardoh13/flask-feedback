@@ -1,11 +1,12 @@
 {% extends "base.html" %} {% block title %} Register {% endblock %} {% block content
     %}
-    <h1>Register</h1>
+    <h1 class="text-center">Register</h1>
     <form method="POST">
       {% include "form.html" %}
       <div class="formBtnDiv">
         <button class="btn btn-success formBtn text-center" type="submit">Register</button>
-        <p>or</p>
+        <hr>
+        <p class="text-center">Already have an account?</p>
         <a href="/login" class="btn btn-primary formBtn"> Login</a>
       </div>
       </form>

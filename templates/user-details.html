@@ -1,10 +1,32 @@
 {% extends "base.html" %} {% block title %} User Details {% endblock %} {% block
-    content %}
-    <h2> User details:</h2>
-    <h3>Username: {{ user.username }}</h3>
-    <h3>Name: {{ user.first_name }} {{ user.last_name}}</h3>
-    <h3>Email: {{ user.email }}</h3>
-    <a href="/users/{{ user.username }}/add" class="btn btn-info">Add Feedback</a>
-
-    {% endblock %}
-    
+content %}
+<h1>User details:</h1>
+<h3>Username: {{ user.username }}</h3>
+<h3>Name: {{ user.first_name }} {{ user.last_name}}</h3>
+<h3>Email: {{ user.email }}</h3>
+<form class="mb-4 delForm" action="/users/{{ users.username }}/delete" method="POST">
+  <button class="btn btn-danger">Delete Account</button>
+  <a href="/users/{{ user.username }}/add" class="btn btn-info">
+    Add Feedback</a>
+  </form>
+<div class="row">
+  {% for f in user.feedback %}
+  <div class="card col-3 mx-auto mb-auto" style="width: 18rem">
+    <div class="card-body">
+      <h5 class="card-title">{{ f.title }}</h5>
+      <p class="card-text">{{f.content}}</p>
+      <a
+        href="/feedback/{{ f.id }}/update"
+        class="card-link btn btn-dark editBtn"
+        ><i class="bi bi-pencil"></i
+      ></a>
+      <form class="delForm" action="/feedback/{{ f.id }}/delete" method="POST">
+        <button class="card-link btn btn-danger delBtn">
+          <i class="bi bi-trash"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

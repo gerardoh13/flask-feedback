@@ -23,8 +23,8 @@ def show_homepage():
     return render_template("home.html")
 
 @app.route('/register', methods=['GET', 'POST'])
-def show_registration_form():
-    """shows registration form"""
+def registration():
+    """shows registration form and processes registrations"""
     form = UserForm()
     if 'username' in session:
         flash('logout to register a new account', "danger")
@@ -41,13 +41,13 @@ def show_registration_form():
             return render_template('register.html', form=form)
         session['username'] = new_user.username
         flash(f'Welcome {new_user.first_name}')
-        return redirect("/")
+        return redirect(f"/users/{new_user.username}")
         
     return render_template('register.html', form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
-def show_login_form():
-    """shows registration form"""
+def login():
+    """shows login form and processes logins"""
     if 'username' in session:
         flash("You're aleardy logged in", "danger")
         return redirect("/")
@@ -72,12 +72,11 @@ def show_user(username):
         flash("Oops! You don't have access to this page", "danger")
         return redirect('/')
     user = User.query.get_or_404(username)
-    print(user.feedback)
-    print("****************************************************************************************************")
     return render_template('user-details.html', user=user)
 
 @app.route('/users/<username>/add', methods=['GET', 'POST'])
-def show_feedback_form(username):
+def add_feedback(username):
+    """shows new feedback form and submits new feedback"""
     if "username" not in session or session['username'] != username:
         flash("Oops! You don't have access to this page", "danger")
         return redirect('/')
@@ -90,7 +89,47 @@ def show_feedback_form(username):
         flash(f"feedback '{new_feedback.title}' submitted!")
         return redirect(f"/users/{username}")
     return render_template("feedback.html", form=form)
-                
+
+@app.route('/feedback/<int:feedback_id>/update', methods=['GET', 'POST'])
+def update_feedback(feedback_id):
+    """shows feedback update form and submits updates"""
+    feedback = Feedback.query.get_or_404(feedback_id)
+    if "username" not in session or session['username'] != feedback.username:
+        flash("Oops! You don't have access to this page", "danger")
+        return redirect('/')
+    form = FeedbackForm(title=feedback.title, content=feedback.content)
+    if form.validate_on_submit():
+        feedback.title = form.title.data
+        feedback.content = form.content.data
+        db.session.commit()
+        flash(f"feedback '{feedback.title}' updated!")
+        return redirect(f"/users/{feedback.username}")
+    return render_template('feedback.html', form=form)
+
+@app.route('/feedback/<int:feedback_id>/delete', methods=['POST'])
+def delete_feedback(feedback_id):
+    """deletes feedback"""
+    feedback = Feedback.query.get_or_404(feedback_id)
+    if "username" not in session or session['username'] != feedback.username:
+        flash("Oops! You don't have access to this page", "danger")
+        return redirect('/')
+    db.session.delete(feedback)
+    db.session.commit()
+    return redirect(f"/users/{feedback.username}")
+
+@app.route('/users/<username>/delete', methods=['POST'])
+def delete_user(username):
+    """deletes user"""
+    user = User.query.get_or_404(username)
+    if "username" not in session or session['username'] != username:
+        flash("Oops! You don't have access to this page", "danger")
+        return redirect('/')
+    db.session.delete(user)
+    db.session.commit()
+    session.pop('username')
+    flash("Account has been deleted", "danger")
+    return redirect("/")
+
 @app.route('/logout')
 def logout_user():
     session.pop('username')
